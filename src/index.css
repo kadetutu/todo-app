@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@tailwind utilities;
+
+html,
+body {
+  @apply bg-white;
+}
+main{
+  @apply min-h-screen pt-10;
+}
+h1{
+  @apply text-6xl leading-tight tracking-[-2px] font-semibold;
+}
+h2{
+  @apply text-3xl text-shadow-black;
+}
+
+@layer components {
+  .main-bg {
+    @apply bg-stone-800 py-4 grid min-h-screen
+  }
+  .todo-list-bg{
+    @apply bg-white flex flex-col place-self-center w-11/12 max-w-xl p-7 min-h-110
+  }
+  .btn {
+    @apply px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md;
+  }
+  .card {
+    @apply shadow-lg rounded-lg p-6 bg-white;
+  }
+  .auth-button {
+    @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-150 max-md:w-full text-3xl font-semibold text-white;
+  }
+  .main-section {
+    @apply flex flex-col items-center gap-8 pt-12 mx-15 pb-5;
+  }
+  .primary-button {
+    @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+  }
+  .navbar {
+    @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-300 mx-auto;
+  }
+}
+
+@utility primary-gradient {
+  background: linear-gradient(to bottom, #8e98ff, #606beb);
+  box-shadow: 0px 74px 21px 0px #6678ef00;
+}
+
+@utility primary-gradient-hover {
+  background: linear-gradient(to bottom, #717dff, #4957eb);
+}
