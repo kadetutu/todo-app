@@ -79,7 +79,7 @@ pipeline {
       steps {
         container('kubectl') {
           sh """
-            kubectl apply -f k8s/deployment.yaml -n devops-tools
+            kubectl apply -f deployment.yaml -n devops-tools
             kubectl set image deployment/react-app react-app=${REGISTRY_IMAGE}:${IMAGE_TAG} -n devops-tools
             kubectl rollout status deployment/react-app -n devops-tools --timeout=120s
           """
