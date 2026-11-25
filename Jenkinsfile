@@ -6,11 +6,55 @@ pipeline {
   }
 
   environment {
-    REGISTRY_IMAGE = "your-dockerhub-user/react-app"
+    REGISTRY_IMAGE = "realkeny/todo-app"
+    DOCKER_REGISTRY = "${env.REGISTRY_IMAGE}"
     IMAGE_TAG      = "${env.BUILD_NUMBER}"
   }
 
   stages {
+    stage('Checkout') {
+        steps {
+            checkout scm
+        }
+    }
+    
+    stage('Install Dependencies') {
+        steps {
+            container('node') {
+                sh 'npm ci'
+            }
+        }
+    }
+    
+    stage('Lint') {
+        steps {
+            container('node') {
+                sh 'npm run lint'
+            }
+        }
+    }
+    
+    stage('Unit Tests') {
+        steps {
+            container('node') {
+                sh 'npm run test:unit'
+            }
+        }
+        post {
+            always {
+                junit 'reports/jest-*.xml'
+            }
+        }
+    }
+    
+    stage('Build') {
+        steps {
+            container('node') {
+                sh 'npm run build'
+            }
+        }
+    }
+
     stage('Build & Push Container') {
       steps {
         container('kaniko') {
