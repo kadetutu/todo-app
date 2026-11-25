@@ -61,6 +61,8 @@ pipeline {
       steps {
         container('kaniko') {
           sh """
+            ls -la /kaniko/.docker/
+            cat /kaniko/.docker/config.json | sed 's/"auth":.*/"auth": "REDACTED"/'
             /kaniko/executor \
               --context `pwd` \
               --dockerfile `pwd`/Dockerfile \
