@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { FileText, Menu, X } from "lucide-react";
+import { FileText } from "lucide-react";
 
 const navLinks = [
     {name: 'Home', link: '/'},

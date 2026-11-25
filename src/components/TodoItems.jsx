@@ -1,7 +1,4 @@
-import React from 'react'
 import { Trash2, PencilLine } from "lucide-react";
-import useTodoStore from "../store/todoStore.js";
-import {useShallow} from "zustand/react/shallow";
 
 const TodoItems = ({text, id, completed, deleteTodo, toggleTodo, EditTodo}) => {
 
