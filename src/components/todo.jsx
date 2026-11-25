@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useEffect } from "react";
 import { ListTodo } from "lucide-react";
 import TodoItems from "./TodoItems.jsx";
-import Edit from "./Edit";
+import Edit from "./edit.jsx";
 import { getTodoItem } from '../lib/localstore.js';
 
 const ToDo = ()=> {
