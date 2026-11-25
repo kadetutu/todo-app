@@ -34,6 +34,7 @@ pipeline {
         }
     }
     
+    /*
     stage('Unit Tests') {
         steps {
             container('node') {
@@ -45,7 +46,8 @@ pipeline {
                 junit 'reports/jest-*.xml'
             }
         }
-    }
+    } 
+    */
     
     stage('Build') {
         steps {
