@@ -67,7 +67,9 @@ pipeline {
               --context `pwd` \
               --dockerfile `pwd`/Dockerfile \
               --destination ${REGISTRY_IMAGE}:${IMAGE_TAG} \
-              --destination ${REGISTRY_IMAGE}:latest
+              --destination ${REGISTRY_IMAGE}:latest \
+              --snapshot-mode=redo \
+              --use-new-run
           """
         }
       }
