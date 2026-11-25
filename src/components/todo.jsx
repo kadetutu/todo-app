@@ -1,4 +1,4 @@
-import React, {use, useState} from 'react'
+import React, {useState} from 'react'
 import { useEffect } from "react";
 import { ListTodo } from "lucide-react";
 import TodoItems from "./TodoItems.jsx";
@@ -76,7 +76,7 @@ const ToDo = ()=> {
 
     useEffect(() => {
         localStorage.setItem("todoList", JSON.stringify(todoList));
-    }, [todoList]);  
+    }, [todoList]);
 
     return (
         <div className="todo-list-bg">
@@ -102,11 +102,12 @@ const ToDo = ()=> {
 
                 {todoList.map((item, index) => (
                     item.editing ? (
-                        <Edit key={index} text={item.text} id={item.id} editTask={EditTask}/>
+                        <Edit key={index} text={item.text} id={item.id} editTask={EditTask} />
                     ) : (
                         <TodoItems className="flex items-center p-3 rounded-lg bg-slate-100 border border-gray-200"
                                    key={index} text={item.text} id={item.id} completed={item.completed}
-                                   deleteTodo={deleteTodo} toggleTodo={toggleTodo} EditTodo={EditTodo} />
+                                   deleteTodo={deleteTodo} toggleTodo={toggleTodo} EditTodo={EditTodo}
+                        />
                     )
                 )) }
             </div>

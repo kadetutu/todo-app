@@ -1,0 +1,40 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml file('agent-builder.yaml')
+    }
+  }
+
+  environment {
+    REGISTRY_IMAGE = "your-dockerhub-user/react-app"
+    IMAGE_TAG      = "${env.BUILD_NUMBER}"
+  }
+
+  stages {
+    stage('Build & Push Container') {
+      steps {
+        container('kaniko') {
+          sh """
+            /kaniko/executor \
+              --context `pwd` \
+              --dockerfile `pwd`/Dockerfile \
+              --destination ${REGISTRY_IMAGE}:${IMAGE_TAG} \
+              --destination ${REGISTRY_IMAGE}:latest
+          """
+        }
+      }
+    }
+
+    stage('Deploy to Kubernetes') {
+      steps {
+        container('kubectl') {
+          sh """
+            kubectl apply -f k8s/deployment.yaml
+            kubectl set image deployment/react-app react-app=${REGISTRY_IMAGE}:${IMAGE_TAG} -n default
+            kubectl rollout status deployment/react-app -n default --timeout=120s
+          """
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
 
-const Edit = ({editTask, text, id}) => {
-
+const Edit = ({text, id, editTask}) => {
     const[editValue, setEditValue] = useState(text)
-
     return (
         <div>
             <div className="flex flex-auto items-center hover:bg-blue-200 rounded-full border border-gray-400 bg-gray-200">

@@ -1,7 +1,10 @@
 import React from 'react'
 import { Trash2, PencilLine } from "lucide-react";
+import useTodoStore from "../store/todoStore.js";
+import {useShallow} from "zustand/react/shallow";
 
 const TodoItems = ({text, id, completed, deleteTodo, toggleTodo, EditTodo}) => {
+
     return (
         <div className="flex items-center my-3 gap-2">
             <div className="flex flex-auto items-center cursor-pointer hover:bg-blue-200 rounded-full border border-gray-400 bg-gray-200 px-2">
