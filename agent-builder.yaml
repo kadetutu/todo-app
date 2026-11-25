@@ -19,6 +19,9 @@ spec:
         memory: "512Mi"
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
+    env:
+    - name: DOCKER_CONFIG
+      value: /kaniko/.docker
     command:
     - sleep
     args:
