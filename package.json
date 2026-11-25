@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
     "test:watch": "vitest",
     "preview": "vite preview"
   },
