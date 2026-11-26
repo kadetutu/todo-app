@@ -80,7 +80,7 @@ pipeline {
         container('kubectl') {
           sh """
             sed -i "s|\${DOCKER_REGISTRY}|${DOCKER_REGISTRY}|g" k8s/deployment.yaml
-            sed -i "s|\${BUILD_VERSION}|${BUILD_VERSION}|g" k8s/deployment.yaml
+            sed -i "s|\${IMAGE_TAG}|${IMAGE_TAG}|g" k8s/deployment.yaml
             kubectl apply -f k8s/deployment.yaml -n devops-tools
             kubectl set image deployment/react-app react-app=${REGISTRY_IMAGE}:${IMAGE_TAG} -n devops-tools
             kubectl rollout status deployment/react-app -n devops-tools --timeout=120s

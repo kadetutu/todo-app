@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: todo-app
-        image: ${DOCKER_REGISTRY}/todo-app:${BUILD_VERSION}
+        image: ${DOCKER_REGISTRY}/todo-app:${IMAGE_TAG}
         ports:
         - containerPort: 80
         resources:
