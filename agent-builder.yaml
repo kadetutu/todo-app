@@ -23,6 +23,8 @@ spec:
         memory: "512Mi"
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
+    securityContext:
+      runAsUser: 0
     env:
     - name: DOCKER_CONFIG
       value: /kaniko/.docker
