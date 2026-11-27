@@ -34,20 +34,13 @@ pipeline {
         }
     }
     
-    /*
-    stage('Unit Tests') {
+    stage('Tests') {
         steps {
             container('node') {
-                sh 'npm run test:unit'
+                sh 'npm run test'
             }
-        }
-        post {
-            always {
-                junit 'reports/jest-*.xml'
-            }
-        }
+        }        
     } 
-    */
     
     stage('Build') {
         steps {
@@ -60,9 +53,7 @@ pipeline {
     stage('Build & Push Container') {
       steps {
         container('kaniko') {
-          sh """
-            ls -la /kaniko/.docker/
-            cat /kaniko/.docker/config.json | sed 's/"auth":.*/"auth": "REDACTED"/'
+          sh """            
             /kaniko/executor \
               --context `pwd` \
               --dockerfile `pwd`/Dockerfile \
@@ -83,7 +74,7 @@ pipeline {
             sed -i "s|\${IMAGE_TAG}|${IMAGE_TAG}|g" deployment.yaml
             kubectl apply -f deployment.yaml -n devops-tools
             kubectl set image deployment/todo-app todo-app=${REGISTRY_IMAGE}:${IMAGE_TAG} -n devops-tools
-            kubectl rollout status deployment/todo-app -n devops-tools --timeout=600s
+            kubectl rollout status deployment/todo-app -n devops-tools --timeout=300s
           """
         }
       }
