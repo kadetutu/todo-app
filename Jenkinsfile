@@ -57,8 +57,8 @@ pipeline {
             /kaniko/executor \
               --context `pwd` \
               --dockerfile `pwd`/Dockerfile \
-              --destination ${REGISTRY_IMAGE}:${IMAGE_TAG} \
-              --destination ${REGISTRY_IMAGE}:latest \
+              --destination ${DOCKER_REGISTRY}:${IMAGE_TAG} \
+              --destination ${DOCKER_REGISTRY}:latest \
               --snapshot-mode=redo \
               --use-new-run
           """
@@ -73,7 +73,7 @@ pipeline {
             sed -i "s|\${DOCKER_REGISTRY}|${DOCKER_REGISTRY}|g" deployment.yaml
             sed -i "s|\${IMAGE_TAG}|${IMAGE_TAG}|g" deployment.yaml
             kubectl apply -f deployment.yaml -n devops-tools
-            kubectl set image deployment/todo-app todo-app=${REGISTRY_IMAGE}:${IMAGE_TAG} -n devops-tools
+            kubectl set image deployment/todo-app todo-app=${DOCKER_REGISTRY}:${IMAGE_TAG} -n devops-tools
             kubectl rollout status deployment/todo-app -n devops-tools --timeout=300s
           """
         }
