@@ -37,11 +37,11 @@ pipeline {
     
     stage('SonarQube Analysis') {
       steps {
-          container('sonar-scanner') {
-              sh 'ls -la /opt/sonar-scanner/conf/sonar-scanner.properties'
-              sh 'export SONAR_HOST_URL=http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
+          container('sonar-scanner') {              
               // 'SonarQube' must match the server name in Manage Jenkins > System
               withSonarQubeEnv('SonarQube') {
+                  sh 'cat /home/jenkins/agent/workspace/TodoApp-Build/sonar-project.properties'
+                  sh 'export SONAR_HOST_URL=http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
                   sh 'sonar-scanner'
               }
           }
