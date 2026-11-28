@@ -17,10 +17,10 @@ spec:
     tty: true
     resources:
       requests:
-        memory: "512Mi"
+        memory: "1Gi"
         cpu: "200m"
       limits:
-        memory: "1Gi"
+        memory: "2Gi"
         cpu: "300m"
   - name: node
     image: node:24-alpine
