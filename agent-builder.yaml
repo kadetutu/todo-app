@@ -10,6 +10,18 @@ spec:
     runAsGroup: 1000
     fsGroup: 1000
   containers:
+  - name: sonar-scanner
+    image: sonarsource/sonar-scanner-cli:latest
+    command:
+    - cat
+    tty: true
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "1000m"
   - name: node
     image: node:24-alpine
     command:
@@ -17,11 +29,11 @@ spec:
     tty: true
     resources:
       requests:
-        cpu: "100m"
-        memory: "128Mi"
+        cpu: "200m"
+        memory: "1Gi"
       limits:
         cpu: "500m"
-        memory: "512Mi"
+        memory: "1Gi"
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     securityContext:

@@ -18,10 +18,11 @@ pipeline {
         }
     }
     
-    stage('Install Dependencies') {
+    stage('Install Dependencies & Test') {
         steps {
             container('node') {
-                sh 'npm ci'
+                sh 'NODE_OPTIONS="--max-old-space-size=1048" npm ci'
+                sh 'npm ci -- --coverage --watchAll=false'
             }
         }
     }
@@ -34,13 +35,25 @@ pipeline {
         }
     }
     
-    stage('Tests') {
-        steps {
-            container('node') {
-                sh 'npm run test'
-            }
-        }        
-    } 
+    stage('SonarQube Analysis') {
+      steps {
+          container('sonar-scanner') {
+              // 'SonarQube' must match the server name in Manage Jenkins > System
+              withSonarQubeEnv('SonarQube') {
+                  sh 'sonar-scanner'
+              }
+          }
+      }
+    }
+
+    stage('Quality Gate') {
+      steps {
+          timeout(time: 5, unit: 'MINUTES') {
+              // Runs on the default jnlp container; doesn't need node or sonar-scanner
+              waitForQualityGate abortPipeline: true
+          }
+      }
+    }
     
     stage('Build') {
         steps {
