@@ -40,8 +40,7 @@ pipeline {
           container('sonar-scanner') {
             withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {            
               // 'SonarQube' must match the server name in Manage Jenkins > System
-              withSonarQubeEnv('SonarQube') {
-                  sh 'cat /home/jenkins/agent/workspace/TodoApp-Build/sonar-project.properties'                  
+              withSonarQubeEnv('SonarQube') {                                   
                   sh 'sonar-scanner'
               }
             }
